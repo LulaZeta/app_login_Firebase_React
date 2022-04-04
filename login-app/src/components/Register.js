@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { useAuth } from '../context/authContext'
 import { useNavigate } from 'react-router-dom';
+import { Alert } from "./Alert";
 
 export const Register = () => {
     const [user, setUser] = useState({
@@ -36,7 +37,7 @@ const [error, setError] = useState()
   return (
     <div>
 
-        {error && <p>{error}</p> }
+        {error && <Alert message={error}/> }
 
         <form onSubmit={handleSubmit}>
 

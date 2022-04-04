@@ -9,7 +9,7 @@ export const Login = () => {
     email:'',
     password:'',
     });
-    const {login, loginWithGoogle} = useAuth()
+    const {login, loginWithGoogle, resetPassword} = useAuth()
     const navigate = useNavigate()
 const [error, setError] = useState()
 
@@ -46,6 +46,16 @@ const [error, setError] = useState()
         }
     }
 
+    const handleResetPassword = async () => {
+        if(!user.email) return setError("Please enter your email");
+        try {
+            await resetPassword(user.email);
+            setError('we sent you an email with a link to reset your password')
+        } catch(error){
+            setError(error.message)
+        }
+    }
+
   return (
     <div className= "w-full max-w-xs m-auto">
 
@@ -62,7 +72,12 @@ const [error, setError] = useState()
                 <label htmlFor="password">Password</label>
                 <input type='password' name='password' id= 'password'  placeholder="******" onChange={handleChange} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus: outline-none focus:shadow-outline" />
             </div>
+            <div className="flex items-center justify-between">
             <button className="bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Login</button>
+
+            <a href="#!" onClick={handleResetPassword} className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">Forgot Password?</a>
+            </div>
+       
         </form>
         <p className="my-4 text-sm flex justify-between px-3" >Don't have an Account? <Link to='/register'  className="text-blue-700 hover:text-blue-900"  ></Link>Register</p>
 
